@@ -207,11 +207,11 @@ if (floatingSearchForm) {
             }
         });
     } else {
-        console.error('✗ Search button NOT found');
     }
+
 } else {
-    console.error('✗ Floating search form NOT found');
 }
+
 
 // ===========================
 // DESTINATION CARDS INTERACTION
@@ -725,8 +725,8 @@ if (flightSearchForm) {
     });
 
 } else {
-    console.error('✗ Flight search form NOT found!');
 }
+
 
 // Generate fake flight results
 function generateFlights(from, to, departureDate, returnDate, travellers, cabinClass) {
@@ -1046,7 +1046,7 @@ function renderSeatSelectionModal() {
 
     // --- Confirm Button ---
     confirmButton.disabled = selectedSeats.length !== travellers;
-    confirmButton.textContent = selectedSeats.length === travellers
+    confirmButton.innerHTML = selectedSeats.length === travellers
         ? `Reserve ${selectedSeats.length} Seat${selectedSeats.length > 1 ? 's' : ''} &rarr;`
         : `Select ${travellers - selectedSeats.length} More Seat${travellers - selectedSeats.length === 1 ? '' : 's'}`;
 
@@ -1808,13 +1808,6 @@ function attachPrivateFlightHandlers() {
         totalPrice = Math.round(totalPrice / 100) * 100;
 
         priceDisplay.textContent = `$${totalPrice.toLocaleString()}`;
-        console.log('Private flight price updated:', {
-            route: `${departure} → ${destination}`,
-            aircraft: aircraft.name,
-            duration: flightHours,
-            routeFound,
-            total: totalPrice
-        });
     }
 
     function estimateFlightDuration(city1, city2) {
@@ -2107,15 +2100,6 @@ function updateTotalPrice(serviceType, serviceSelect, guestSelect, durationSelec
 
     // Update display
     priceDisplay.textContent = `$${Math.round(basePrice).toLocaleString()}`;
-    console.log('Price updated:', {
-        service: selectedOption.name,
-        basePrice: selectedOption.price,
-        nights: selectedOption.perNight ? nights : 'N/A',
-        guests: selectedOption.perPerson && guestSelect ? guestSelect.value : 'N/A',
-        days: selectedOption.perDay && durationSelect ? durationSelect.value : 'N/A',
-        multiplier,
-        total: Math.round(basePrice)
-    });
 }
 
 
@@ -2353,7 +2337,6 @@ function openOfferDetail(offerType) {
 
     const offerData = OFFERS_DATA[offerType];
     if (!offerData) {
-        console.error('Offer data not found:', offerType);
         return;
     }
 
@@ -2462,7 +2445,6 @@ function proceedToPayment(bookingData) {
         sessionStorage.removeItem('originova_booking_number');
         localStorage.setItem('originova_booking', JSON.stringify(bookingData));
     } catch (error) {
-        console.error('Unable to save booking data:', error);
         showNotification('Unable to continue to payment right now. Please try again.', 'error');
         return;
     }
@@ -2477,7 +2459,6 @@ function getBookingData() {
         const data = localStorage.getItem('originova_booking');
         return data ? JSON.parse(data) : null;
     } catch (error) {
-        console.error('Unable to read booking data:', error);
         return null;
     }
 }
